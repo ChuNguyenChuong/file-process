@@ -65,7 +65,7 @@ const SortFilesBlock = block(() => {
     ],
     right: [
       {
-        name: "group2",
+        name: "All files",
         list: list
       }
     ]

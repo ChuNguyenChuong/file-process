@@ -3,7 +3,7 @@ import { Button, UploadProps } from "antd";
 import { RcFile } from 'antd/es/upload';
 import Dragger from "antd/es/upload/Dragger";
 import { block } from "million/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
@@ -31,6 +31,10 @@ const UploadFilesBlock = block(() => {
   const naviagte = useNavigate()
   const [fileList, setFileList] = useState<RcFile[]>([])
 
+  useEffect(() => {
+    console.log("fileList", fileList);
+  }, [fileList])
+
   const props: UploadProps = {
     name: 'file',
     multiple: true,
@@ -39,8 +43,8 @@ const UploadFilesBlock = block(() => {
       const newValue = cloneFile.filter(item => item.uid !== file.uid)
       setFileList(newValue);
     },
-    beforeUpload: (file) => {
-      setFileList([...fileList, file]);
+    beforeUpload: (_, fileList) => {
+      setFileList([...fileList]);
       return false;
     }
   };
@@ -53,7 +57,6 @@ const UploadFilesBlock = block(() => {
       },
       onFail: (e) => {
         console.log(e);
-
       }
     }))
   }
