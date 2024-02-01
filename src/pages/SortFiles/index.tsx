@@ -4,11 +4,15 @@ import { useState } from "react";
 import DndComponent from "../DndComponent";
 import { IValue } from "../DndComponent/types";
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 
 
 
 const SortFilesBlock = block(() => {
+  const { list } = useSelector((state: RootState) => state.files)
+
   const [value, setValue] = useState<IValue>({
     left: [
       {
@@ -62,16 +66,7 @@ const SortFilesBlock = block(() => {
     right: [
       {
         name: "group2",
-        list: [
-          {
-            id: uuidv4(),
-            name: "name 1 right"
-          },
-          {
-            id: uuidv4(),
-            name: "name 2 right"
-          }
-        ]
+        list: list
       }
     ]
   });

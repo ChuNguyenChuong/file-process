@@ -13,7 +13,11 @@ function* sendFile(action: PayloadAction<IPayload<RcFile[]>>): SagaIterator {
   try {
     message.loading("File uploading ...");
     const fileRes = yield call(sendFiles, action.payload.data);
-    yield put({ type: uploadFileStoreSuccess.type, payload: fileRes.data });
+    yield put({
+      type: uploadFileStoreSuccess.type, payload: {
+        data: fileRes.data
+      }
+    });
     message.destroy();
     message.success("File uploading success!!!");
     action.payload.onSuccess && action.payload.onSuccess(fileRes);
