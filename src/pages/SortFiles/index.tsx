@@ -1,42 +1,31 @@
 
 import { block } from "million/react";
 import { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { RootState } from "../../store";
 import DndComponent from "../DndComponent";
 import { IValue } from "../DndComponent/types";
+import docxIcon from "./../../assets/images/file-doc-svgrepo-com.svg";
+import xlsxIcon from "./../../assets/images/xlsx-file-format-extension-svgrepo-com.svg";
 
 
 
 
 const SortFilesBlock = block(() => {
-  // const { list } = useSelector((state: RootState) => state.files)
-  // if (list.length === 0) {
-  //   return <Navigate to="/upload-file" replace={true} />
-  // }
+  const { list } = useSelector((state: RootState) => state.files)
 
   const [value, setValue] = useState<IValue>({
     left: [
       {
+        icon: docxIcon,
         name: "Anschreiben muss Ueberm und BSW enthalten und auf .doc(x) enden",
-        list: [
-          {
-            id: uuidv4(),
-            name: "name 1 left"
-          },
-          {
-            id: uuidv4(),
-            name: "name 2 left"
-          },
-          {
-            id: uuidv4(),
-            name: "name 3 left"
-          }
-        ]
+        list: []
       },
       {
+        icon: xlsxIcon,
         name: "Excel-Datei (muss .xlsx heißen)",
-        list: [
-        ]
+        list: []
       },
       {
         name: "Bescheidserwiderung (muss *-BSW-• enthalten)",
@@ -44,45 +33,38 @@ const SortFilesBlock = block(() => {
       },
       {
         name: "Neue Patentansprüche Korrekturexemplar (muss -neue-ANS- und -korr enthalten)",
-        list: [
-        ]
+        list: []
       },
       {
         name: "Neue Patentansprüche Reinschrift (muss -neue-ANS- und -rein enthalten )",
-        list: [
-        ]
+        list: []
       },
       {
         name: "Neue Beschreibungsseiten (muss -neue-BES- und -korr enthalten)",
-        list: [
-        ]
+        list: []
       },
       {
         name: "Neue Beschreibungsseiten (muss -neue-BES- und -rein enthalten)",
-        list: [
-        ]
+        list: []
       },
     ],
     right: [
       {
         name: "All files",
-        list: [
-          {
-            id: uuidv4(),
-            name: "string 1",
-          },
-          {
-            id: uuidv4(),
-            name: "string 2",
-          }
-        ]
+        list: list
       }
     ]
   });
 
+  const getContainer = () => {
+    return list.length === 0 ? <Navigate to="/upload-file" replace={true} /> : <DndComponent value={value} setValue={setValue}></DndComponent>
+  }
+
   return (
     <div style={{ width: "100vw", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "start", background: "#dedcd4", paddingBottom: "10px" }}>
-      <DndComponent value={value} setValue={setValue}></DndComponent>
+      {
+        getContainer()
+      }
     </div>
   );
 })

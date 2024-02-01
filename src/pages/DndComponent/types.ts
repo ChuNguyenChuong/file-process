@@ -1,4 +1,5 @@
 export interface IGroup {
+  icon?: string;
   name: string,
   list: IItem[]
 }
