@@ -1,17 +1,18 @@
 
 import { block } from "million/react";
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import DndComponent from "../DndComponent";
 import { IValue } from "../DndComponent/types";
-import { v4 as uuidv4 } from 'uuid';
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
 
 
 
 
 const SortFilesBlock = block(() => {
-  const { list } = useSelector((state: RootState) => state.files)
+  // const { list } = useSelector((state: RootState) => state.files)
+  // if (list.length === 0) {
+  //   return <Navigate to="/upload-file" replace={true} />
+  // }
 
   const [value, setValue] = useState<IValue>({
     left: [
@@ -39,8 +40,7 @@ const SortFilesBlock = block(() => {
       },
       {
         name: "Bescheidserwiderung (muss *-BSW-• enthalten)",
-        list: [
-        ]
+        list: []
       },
       {
         name: "Neue Patentansprüche Korrekturexemplar (muss -neue-ANS- und -korr enthalten)",
@@ -66,7 +66,16 @@ const SortFilesBlock = block(() => {
     right: [
       {
         name: "All files",
-        list: list
+        list: [
+          {
+            id: uuidv4(),
+            name: "string 1",
+          },
+          {
+            id: uuidv4(),
+            name: "string 2",
+          }
+        ]
       }
     ]
   });

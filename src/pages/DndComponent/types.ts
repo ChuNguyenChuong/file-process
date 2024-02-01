@@ -14,8 +14,8 @@ export interface IValue {
 }
 
 export enum EnumPosition {
-  RIGHT = "RIGHT",
-  LEFT = "LEFT"
+  RIGHT = "right",
+  LEFT = "left"
 }
 
 export interface IItemDrag {

@@ -1,6 +1,6 @@
-import { For, block } from 'million/react';
+import { block } from 'million/react';
 import React, { useCallback, useRef } from 'react';
-import { DndComponentWraper, GroupName, Item, LeftFilter, RightFiles, WraperContainer } from './styled';
+import { DndComponentWraper, GroupName, Item, LeftFilter, WraperContainer } from './styled';
 import { EnumPosition, IItem, IItemDrag, IValue } from './types';
 
 type Props = {
@@ -23,6 +23,8 @@ const DndComponentBlock = block(({ value, className }: Props) => {
 
   const handleDragEnter = useCallback((item: IItem) => () => {
     overTtemDragId.current = item.id
+    console.log("handleDragEnter", item);
+
   }, [])
 
   const handleOnDragStar = useCallback((item: IItem, position: EnumPosition, groupName: string) => () => {
@@ -34,7 +36,24 @@ const DndComponentBlock = block(({ value, className }: Props) => {
     }
   }, []);
 
-  const handleOnDrop = useCallback(() => {
+  const handleOnDrop = useCallback((groupId: string, postion: EnumPosition) => () => {
+    console.log(groupId, postion);
+
+    // setValue(old => {
+    //   const positionInState = postion === EnumPosition.RIGHT ? "right" : "left"
+    //   const cloneOldValue = {
+    //     ...old, [positionInState]: old[positionInState].map(group => {
+    //       if (group.name === groupId && overTtemDragId.current === "") {
+    //         group.list = [...group.list, (itemDrag.current?.data as IItem)]
+    //       }
+    //       return group
+    //     })
+    //   }
+
+    //   return cloneOldValue
+    // })
+
+
     console.log("🚀 ~ handleOnDrop ~ itemDrag:", itemDrag)
     console.log("🚀 ~ handleOnDrop ~ itemDragCurrentId:", itemDragCurrentId)
     console.log("🚀 ~ handleOnDrop ~ overTtemDragId:", overTtemDragId)
@@ -48,31 +67,58 @@ const DndComponentBlock = block(({ value, className }: Props) => {
     // console.log(itemDrag.current);
   }, [])
 
+  const handleOnDragLeave = useCallback(() => {
+    overTtemDragId.current = ""
+  }, [])
+
 
 
   return (
     <DndComponentWraper className={className}>
       <WraperContainer>
-        <For each={left} memo>{(group) => {
-          return <LeftFilter onDrop={handleOnDrop} onDragOver={handleOnDrangOver}>
+        {left.map(group => {
+          return <LeftFilter onDrop={handleOnDrop(group.name, EnumPosition.LEFT)} onDragOver={handleOnDrangOver}>
             <GroupName>
               {group.name}
             </GroupName>
-            <For each={group.list} memo>{(item) => {
-              return <Item
-                draggable
-                onDragStart={handleOnDragStar(item, EnumPosition.LEFT, group.name)}
-                onDragEnter={handleDragEnter(item)}
-                onDragEnd={handleDragEnd}
-              >
-                {item.name}
-              </Item>
-            }}</For>
+            {
+              group.list.map(item => {
+                return <Item
+                  draggable
+                  onDragStart={handleOnDragStar(item, EnumPosition.LEFT, group.name)}
+                  onDragEnter={handleDragEnter(item)}
+                  onDragEnd={handleDragEnd}
+                  onDragLeave={handleOnDragLeave}
+                >
+                  {item.name}
+                </Item>
+              })
+            }
           </LeftFilter>
-        }}</For>
+        })}
       </WraperContainer>
       <WraperContainer>
-        <For each={right} memo>{(group) => {
+        {right.map(group => {
+          return <LeftFilter onDrop={handleOnDrop(group.name, EnumPosition.RIGHT)} onDragOver={handleOnDrangOver}>
+            <GroupName>
+              {group.name}
+            </GroupName>
+            {
+              group.list.map(item => {
+                return <Item
+                  draggable
+                  onDragStart={handleOnDragStar(item, EnumPosition.LEFT, group.name)}
+                  onDragEnter={handleDragEnter(item)}
+                  onDragEnd={handleDragEnd}
+                  onDragLeave={handleOnDragLeave}
+                >
+                  {item.name}
+                </Item>
+              })
+            }
+          </LeftFilter>
+        })}
+        {/* <For each={right} memo>{(group) => {
           return <RightFiles onDrop={handleOnDrop} onDragOver={handleOnDrangOver}>
             <GroupName>
               {group.name}
@@ -88,7 +134,7 @@ const DndComponentBlock = block(({ value, className }: Props) => {
               </Item>
             }}</For>
           </RightFiles>
-        }}</For>
+        }}</For> */}
       </WraperContainer>
     </DndComponentWraper>
   )

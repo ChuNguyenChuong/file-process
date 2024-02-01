@@ -13,7 +13,7 @@ export const WraperContainer = styled.div`
 `
 
 export const LeftFilter = styled.div`
-  min-width: 700px;
+  min-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -27,7 +27,7 @@ export const LeftFilter = styled.div`
 `
 
 export const RightFiles = styled.div`
-  min-width: 500px;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   gap: 30px;
