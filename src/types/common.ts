@@ -8,7 +8,8 @@ export interface IValue {
 export interface IGroup {
   icon?: string;
   name: string,
-  list: IItem[]
+  list: IItem[],
+  id: string
 }
 
 export interface IItem {
@@ -19,7 +20,7 @@ export interface IItem {
 export interface IItemDrag {
   data: IItem,
   position: EnumPosition,
-  group: string
+  groupId: string
 }
 
 export interface IResponseFileUpload {

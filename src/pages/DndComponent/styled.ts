@@ -10,7 +10,7 @@ export const DndComponentWraper = styled.div`
 export const WraperContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 40px;
 `
 
 export const LeftFilter = styled.div`
@@ -61,7 +61,7 @@ export const GroupName = styled.p`
   font-size: 14px;
   font-weight: 500;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  max-width: calc(100% - 20px);
+  width: calc(100% - 20px);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

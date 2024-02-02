@@ -20,10 +20,11 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
       id: "",
       name: ""
     },
-    group: "",
+    groupId: "",
     position: EnumPosition.RIGHT
   })
   const overTtemDragId = useRef<string>("")
+  // const isOverSameGroup = useRef<boolean>(true)
 
   const handleOnDrangOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -33,22 +34,50 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
     overTtemDragId.current = item.id
   }, [])
 
-  const handleOnDragStar = useCallback((item: IItem, position: EnumPosition, groupName: string) => () => {
+  const handleOnDragStar = useCallback((item: IItem, position: EnumPosition, groupId: string) => () => {
     itemDrag.current = {
       data: item,
-      group: groupName,
+      groupId: groupId,
       position
     }
   }, []);
 
   const handleOnDrop = useCallback((groupId: string, postion: EnumPosition) => () => {
+    console.log("sdasd", overTtemDragId.current, groupId, postion);
     const positionInState = postion === EnumPosition.RIGHT ? "right" : "left";
+
+    const removeItenInGroupDraged = () => {
+        return value[itemDrag.current.position].map(group => {
+        if (group.id === itemDrag.current.groupId) {
+          group.list = group.list.filter(item => item.id !== itemDrag.current.data.id)
+        }
+        return group
+      })
+    }
+
     const cloneOldValue = {
       ...value, [positionInState]: value[positionInState].map(group => {
-        if (group.name === groupId && overTtemDragId.current === "") {
-          group.list = [...group.list, (itemDrag.current.data as IItem)]
+        if (group.id === groupId && groupId == itemDrag.current.groupId && overTtemDragId.current){
+          const cloneGroupList = [...group.list];
+
+          const indexItemGrag = cloneGroupList.findIndex(item => item.id === itemDrag.current.data.id)
+          const indexItemOver = cloneGroupList.findIndex(item => item.id === overTtemDragId.current)
+
+          const temp = cloneGroupList[indexItemOver]
+
+          cloneGroupList[indexItemOver] = itemDrag.current.data
+          cloneGroupList[indexItemGrag] = temp;
+          group.list = cloneGroupList
         }
-        else if (group.name === groupId && overTtemDragId.current !== "") {
+        else if (group.id === groupId && overTtemDragId.current === "") {
+          console.log("cây 2");
+          group.list = [...group.list, (itemDrag.current.data as IItem)]
+
+          value[itemDrag.current.position] = removeItenInGroupDraged()
+        }
+        else if (group.id === groupId && overTtemDragId.current !== "") {
+          console.log("cây 3");
+          
           const indexInGroup = group.list.findIndex(function (element) {
             return element.id === overTtemDragId.current
           });
@@ -56,18 +85,20 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
           const array2 = group.list.slice(indexInGroup)
           array1.push(itemDrag.current.data as IItem)
           const newGroupList = array1.concat(array2)
-          group.list = newGroupList
-
+          group.list = newGroupList;
+          value[itemDrag.current.position] = removeItenInGroupDraged()
         }
         return group
       }),
     }
-    cloneOldValue[itemDrag.current.position] = cloneOldValue[itemDrag.current.position].map(group => {
-      if (group.name === itemDrag.current.group) {
-        group.list = group.list.filter(item => item.id !== itemDrag.current.data.id)
-      }
-      return group
-    });
+    
+
+    // cloneOldValue[itemDrag.current.position] = cloneOldValue[itemDrag.current.position].map(group => {
+    //   if (group.name === itemDrag.current.groupId) {
+    //     group.list = group.list.filter(item => item.id !== itemDrag.current.data.id)
+    //   }
+    //   return group
+    // });
     setValue(cloneOldValue);
   }, [setValue, value])
 
@@ -84,7 +115,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
     <DndComponentWraper className={className}>
       <WraperContainer>
         {left.map(group => {
-          return <LeftFilter onDrop={handleOnDrop(group.name, EnumPosition.LEFT)} onDragOver={handleOnDrangOver} key={group.name}>
+          return <LeftFilter onDrop={handleOnDrop(group.id, EnumPosition.LEFT)} onDragOver={handleOnDrangOver} key={group.id}>
             <GroupName>
               <TooltipGroupName title={group.name}>
                 {group.icon && <img src={group.icon} alt="" width={20} />}
@@ -98,7 +129,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
                 return <Item
                   key={item.id}
                   draggable
-                  onDragStart={handleOnDragStar(item, EnumPosition.LEFT, group.name)}
+                  onDragStart={handleOnDragStar(item, EnumPosition.LEFT, group.id)}
                   onDragEnter={handleDragEnter(item)}
                   onDragEnd={handleDragEnd}
                   onDragLeave={handleOnDragLeave}
@@ -112,7 +143,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
       </WraperContainer>
       <WraperContainer>
         {right.map(group => {
-          return <LeftFilter onDrop={handleOnDrop(group.name, EnumPosition.RIGHT)} onDragOver={handleOnDrangOver} key={group.name}>
+          return <LeftFilter onDrop={handleOnDrop(group.id, EnumPosition.RIGHT)} onDragOver={handleOnDrangOver} key={group.id}>
             <GroupName>
               <Tooltip title={group.name}>
                 {group.name}
@@ -123,7 +154,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
                 return <Item
                   key={item.id}
                   draggable
-                  onDragStart={handleOnDragStar(item, EnumPosition.RIGHT, group.name)}
+                  onDragStart={handleOnDragStar(item, EnumPosition.RIGHT, group.id)}
                   onDragEnter={handleDragEnter(item)}
                   onDragEnd={handleDragEnd}
                   onDragLeave={handleOnDragLeave}
