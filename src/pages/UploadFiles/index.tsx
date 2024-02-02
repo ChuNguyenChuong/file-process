@@ -54,9 +54,6 @@ const UploadFilesBlock = block(() => {
       data: fileList,
       onSuccess: () => {
         naviagte("/sort-files")
-      },
-      onFail: (e) => {
-        console.log(e);
       }
     }))
   }

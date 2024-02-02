@@ -1,20 +1,24 @@
 
+import { Button, Form, Input } from "antd";
 import { block } from "million/react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { RootState } from "../../store";
+import { createFileProcess } from "../../store/files/filesSlice";
+import { IBodyCreateFileProcess, IValue } from "../../types/common";
 import DndComponent from "../DndComponent";
-import { IValue } from "../DndComponent/types";
 import docxIcon from "./../../assets/images/file-doc-svgrepo-com.svg";
 import xlsxIcon from "./../../assets/images/xlsx-file-format-extension-svgrepo-com.svg";
+import { WrapperSortFile } from "./styled";
 
 
 
 
 const SortFilesBlock = block(() => {
-  const { list } = useSelector((state: RootState) => state.files)
-
+  const dispatch = useDispatch()
+  const { list, session } = useSelector((state: RootState) => state.files)
+  
   const [value, setValue] = useState<IValue>({
     left: [
       {
@@ -60,12 +64,49 @@ const SortFilesBlock = block(() => {
     return list.length === 0 ? <Navigate to="/upload-file" replace={true} /> : <DndComponent value={value} setValue={setValue}></DndComponent>
   }
 
+  const handleOnClickSubmit = (values: { company_ref: string, client_ref: string }) => {
+    const listFile = value.left
+    const data: IBodyCreateFileProcess = {
+      session: session,
+      company_ref: values.company_ref,
+      client_ref: values.client_ref,
+      file: listFile
+    }
+    dispatch(createFileProcess({
+      data: data
+    }))
+  }
+
   return (
-    <div style={{ width: "100vw", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "start", background: "#dedcd4", paddingBottom: "10px" }}>
+    <WrapperSortFile>
+      <Form
+        name="infor"
+        layout="inline"
+        initialValues={{ company_ref: "", client_ref: "" }}
+        onFinish={handleOnClickSubmit}
+        autoComplete="off"
+      >
+        <Form.Item
+          name="company_ref"
+          rules={[{ required: true, message: 'Please input company ref!' }]}
+        >
+          <Input placeholder="Company ref" />
+        </Form.Item>
+
+        <Form.Item
+          name="client_ref"
+          rules={[{ required: true, message: 'Please input client ref!' }]}
+        >
+          <Input placeholder="Client ref" />
+        </Form.Item>
+
+
+        <Button htmlType="submit">Submit</Button>
+      </Form>
       {
         getContainer()
       }
-    </div>
+    </WrapperSortFile>
   );
 })
 

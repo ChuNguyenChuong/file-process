@@ -1,8 +1,9 @@
+import { Tooltip } from 'antd';
 import { block } from 'million/react';
 import React, { useCallback, useRef } from 'react';
+import { EnumPosition } from '../../enums/common';
+import { IItem, IItemDrag, IValue } from '../../types/common';
 import { DndComponentWraper, GroupName, Item, LeftFilter, TooltipGroupName, WraperContainer } from './styled';
-import { EnumPosition, IItem, IItemDrag, IValue } from './types';
-import { Tooltip } from 'antd';
 
 type Props = {
   className?: string,
@@ -30,8 +31,6 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
 
   const handleDragEnter = useCallback((item: IItem) => () => {
     overTtemDragId.current = item.id
-    console.log("handleDragEnter", item);
-
   }, [])
 
   const handleOnDragStar = useCallback((item: IItem, position: EnumPosition, groupName: string) => () => {
@@ -43,12 +42,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
   }, []);
 
   const handleOnDrop = useCallback((groupId: string, postion: EnumPosition) => () => {
-    console.log(groupId, postion);
-    console.log(overTtemDragId.current);
-    console.log(itemDrag.current);
     const positionInState = postion === EnumPosition.RIGHT ? "right" : "left";
-    // const positionInState = postion === EnumPosition.RIGHT ? "right" : "left";
-
     const cloneOldValue = {
       ...value, [positionInState]: value[positionInState].map(group => {
         if (group.name === groupId && overTtemDragId.current === "") {
@@ -73,20 +67,9 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
         group.list = group.list.filter(item => item.id !== itemDrag.current.data.id)
       }
       return group
-    })
-
-    setValue(cloneOldValue)
-
-    // if (!isDragInSameGroup) {
-
-    // }
-    // else {
-
-    // }
-
+    });
+    setValue(cloneOldValue);
   }, [setValue, value])
-
-
 
   const handleDragEnd = useCallback(() => {
     // console.log(overTtemDragId.current);
@@ -96,8 +79,6 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
   const handleOnDragLeave = useCallback(() => {
     overTtemDragId.current = ""
   }, [])
-
-
 
   return (
     <DndComponentWraper className={className}>
