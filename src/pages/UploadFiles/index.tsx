@@ -1,33 +1,15 @@
 import { InboxOutlined } from '@ant-design/icons';
 import { Button, UploadProps } from "antd";
 import { RcFile } from 'antd/es/upload';
-import Dragger from "antd/es/upload/Dragger";
 import { block } from "million/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import styled from "styled-components";
+import { BoxBgTranper } from '../../components/styled';
 import { RootState } from '../../store';
 import { uploadFileStore } from '../../store/files/filesSlice';
+import { DraggerStyled, WrapperUploadFile } from './UploadFile.styled';
 
-const Wrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  padding-top: 100px;
-  background-image: url("https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/1fbf4b536c3dd6efa1dc317fb2e6c2ca/photo-1696595883516-76c97aa3a164.jpg");
-  color: white
-`
-
-const DraggerStyled = styled(Dragger)`
-  height: 185px;
-  span,p{
-    color:white !important
-  }
-`
 
 const UploadFilesBlock = block(() => {
   const { isLoadingUploadFile } = useSelector((state: RootState) => state.files)
@@ -62,11 +44,11 @@ const UploadFilesBlock = block(() => {
     }))
   }
 
-  return <Wrapper>
-    <div style={{ display: "flex", gap: "16px" }}>
+  return <WrapperUploadFile>
+    <BoxBgTranper style={{ display: "flex", gap: "16px" }}>
       <Button disabled={isLoadingUploadFile}>Cancel</Button>
       <Button type="primary" onClick={handleSubmit} disabled={isLoadingUploadFile}>Submit</Button>
-    </div>
+    </BoxBgTranper>
     <DraggerStyled {...props} disabled={isLoadingUploadFile}>
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
@@ -77,7 +59,7 @@ const UploadFilesBlock = block(() => {
         banned files.
       </p>
     </DraggerStyled>
-  </Wrapper>
+  </WrapperUploadFile>
 });
 
 export default UploadFilesBlock;

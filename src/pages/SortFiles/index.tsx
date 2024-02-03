@@ -7,8 +7,9 @@ import { Navigate } from "react-router-dom";
 import { RootState } from "../../store";
 import { createFileProcess } from "../../store/files/filesSlice";
 import { IBodyCreateFileProcess, IValue } from "../../types/common";
-import DndComponent from "../DndComponent";
+import DndComponent from "../../components/DndComponent";
 import { WrapperSortFile } from "./styled";
+import { BoxBgTranper } from "../../components/styled";
 
 const SortFilesBlock = block(() => {
   const dispatch = useDispatch()
@@ -80,30 +81,32 @@ const SortFilesBlock = block(() => {
 
   return (
     <WrapperSortFile>
-      <Form
-        name="infor"
-        layout="inline"
-        initialValues={{ company_ref: "", client_ref: "" }}
-        onFinish={handleOnClickSubmit}
-        autoComplete="off"
-      >
-        <Form.Item
-          name="company_ref"
-          rules={[{ required: true, message: 'Please input company ref!' }]}
+      <BoxBgTranper>
+        <Form
+          name="infor"
+          layout="inline"
+          initialValues={{ company_ref: "", client_ref: "" }}
+          onFinish={handleOnClickSubmit}
+          autoComplete="off"
         >
-          <Input placeholder="Company ref" />
-        </Form.Item>
+          <Form.Item
+            name="company_ref"
+            rules={[{ required: true, message: 'Please input company ref!' }]}
+          >
+            <Input placeholder="Company ref" />
+          </Form.Item>
 
-        <Form.Item
-          name="client_ref"
-          rules={[{ required: true, message: 'Please input client ref!' }]}
-        >
-          <Input placeholder="Client ref" />
-        </Form.Item>
+          <Form.Item
+            name="client_ref"
+            rules={[{ required: true, message: 'Please input client ref!' }]}
+          >
+            <Input placeholder="Client ref" />
+          </Form.Item>
 
 
-        <Button htmlType="submit">Submit</Button>
-      </Form>
+          <Button htmlType="submit">Submit</Button>
+        </Form>
+      </BoxBgTranper>
       {
         getContainer()
       }

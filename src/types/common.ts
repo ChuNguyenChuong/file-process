@@ -36,6 +36,7 @@ export interface IResponseFileUpload {
 export interface IFilesDetail {
   id: string,
   name: string,
+  
 }
 
 export interface IBodyCreateFileProcess {

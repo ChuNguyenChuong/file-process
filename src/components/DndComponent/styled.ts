@@ -1,4 +1,4 @@
-import { Steps, Tooltip } from "antd";
+import { Avatar, Steps, Tooltip } from "antd";
 import styled from "styled-components";
 
 export const DndComponentWraper = styled.div`
@@ -111,4 +111,8 @@ export const StepsCustomer = styled(Steps)`
   .ant-steps-item-title{
     width: 100%;
   }
+`
+
+export const IconItem = styled(Avatar)`
+  padding: 2px;
 `

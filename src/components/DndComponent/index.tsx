@@ -1,4 +1,3 @@
-import { Avatar } from "antd";
 import { block } from "million/react";
 import React, { useCallback, useRef } from "react";
 import { EnumPosition } from "../../enums/common";
@@ -8,6 +7,7 @@ import {
   DndComponentWraper,
   GroupContent,
   GroupName,
+  IconItem,
   Item,
   LeftFilter,
   StepsCustomer,
@@ -144,7 +144,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
                   {group.list.map((item) => {
                     return (
                       <StepsCustomer.Step
-                        icon={<Avatar draggable={false} src={getLogoFile(item.name)} />}
+                        icon={<IconItem draggable={false} src={getLogoFile(item.name)} />}
                         title={
                           <Item
                             key={item.id}
@@ -185,7 +185,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
                   {group.list.map((item) => {
                     return (
                       <StepsCustomer.Step
-                        icon={<Avatar draggable={false} src={getLogoFile(item.name)} />}
+                        icon={<IconItem draggable={false} src={getLogoFile(item.name)} className="p-2"/>}
                         title={
                           <Item
                             key={item.id}
