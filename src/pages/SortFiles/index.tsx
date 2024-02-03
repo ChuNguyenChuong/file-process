@@ -52,6 +52,16 @@ const SortFilesBlock = block(() => {
         name: "Neue Beschreibungsseiten (muss -neue-BES- und -rein enthalten)",
         list: []
       },
+      {
+        id: "optionale",
+        name: "Optionale Zeichnungen",
+        list: []
+      },
+      {
+        id: "rechnungPdf",
+        name: "Rechnung (muss *Rechnung* heißen und auf .pdf enden)",
+        list: []
+      },
     ],
     right: [
       {
