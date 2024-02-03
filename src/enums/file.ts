@@ -3,7 +3,8 @@ import docIcon from "./../assets/images/file-doc.svg"
 import pdfIcon from "./../assets/images/file-pdf.svg"
 import svgIcon from "./../assets/images/file-svg.svg"
 import xlsxIcon from "./../assets/images/file-xlsx.svg"
-import imageIcon from "./../assets/images/file-image.svg"
+import jpgIcon from "./../assets/images/file-jpg.svg"
+import jpegIcon from "./../assets/images/file-jpeg.svg"
 import pngIcon from "./../assets/images/file-png.svg"
 import gifIcon from "./../assets/images/file-gif.svg"
 import bmpIcon from "./../assets/images/file-bmp.svg"
@@ -59,8 +60,8 @@ export const logoFile: ILogoFile = {
   bmp: bmpIcon,
   gif: gifIcon,
   png: pngIcon,
-  jpeg: imageIcon,
-  jpg: imageIcon,
+  jpeg: jpegIcon,
+  jpg: jpgIcon,
   pdf: pdfIcon,
   docx: docIcon,
   doc: docIcon,
