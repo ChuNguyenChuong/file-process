@@ -2,50 +2,27 @@
 import { Button, Form, Input } from "antd";
 import { block } from "million/react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { RootState } from "../../store";
 import { createFileProcess } from "../../store/files/filesSlice";
 import { IBodyCreateFileProcess, IValue } from "../../types/common";
 import DndComponent from "../DndComponent";
-import docxIcon from "./../../assets/images/file-doc-svgrepo-com.svg";
-import xlsxIcon from "./../../assets/images/xlsx-file-format-extension-svgrepo-com.svg";
 import { WrapperSortFile } from "./styled";
-
-
-
 
 const SortFilesBlock = block(() => {
   const dispatch = useDispatch()
-  // const { list, session } = useSelector((state: RootState) => state.files)
-  const session = "sads"
-  const list = [
-    {
-      id: "allFiles",
-      name: "All files",
-      list: [
-        {
-          id: "id-1",
-          name: "asdsad.svg"
-        },
-        {
-          id: "id-2",
-          name: "sds.svg"
-        },
-      ]
-    }
-  ]
+  const { list, session } = useSelector((state: RootState) => state.files);
   
   const [value, setValue] = useState<IValue>({
     left: [
       {
         id: "docFiles",
-        icon: docxIcon,
         name: "Anschreiben muss Ueberm und BSW enthalten und auf .doc(x) enden",
         list: []
       },
       {
         id: "xlsxFiles",
-        icon: xlsxIcon,
         name: "Excel-Datei (muss .xlsx heißen)",
         list: []
       },
@@ -75,7 +52,13 @@ const SortFilesBlock = block(() => {
         list: []
       },
     ],
-    right: list
+    right: [
+      {
+        id: "all",
+        name : "All Files",
+        list: list
+      }
+    ]
   });
 
   const getContainer = () => {
