@@ -162,6 +162,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
                   })}
                 </StepsCustomer>
               </GroupContent>
+             
             </LeftFilter>
           );
         })}

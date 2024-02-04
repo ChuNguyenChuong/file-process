@@ -3,14 +3,13 @@ import styled from "styled-components";
 
 export const DndComponentWraper = styled.div`
   display: flex;
-  gap: 30px;
-  margin-top: 50px;
+  gap: 16px;
 `;
 
 export const WraperContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 24px;
   background-color: rgba(252, 253, 255, 0.3);
   padding: 16px;
   height: 720px;

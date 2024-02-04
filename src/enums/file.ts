@@ -21,27 +21,27 @@ import zipIcon from "./../assets/images/file-zip.svg"
 
 
 export interface ILogoFile {
-  txt:string;
+  txt: string;
   doc: string;
   docx: string;
-  pdf:string;
+  pdf: string;
   jpg: string;
   jpeg: string;
-  png:string;
+  png: string;
   gif: string;
   bmp: string;
   svg: string;
   mp3: string;
-  wav:string;
+  wav: string;
   mpeg: string;
-  mp4:string;
+  mp4: string;
   avi: string;
   mkv: string;
   mov: string;
-  exe:string;
+  exe: string;
   xlsx: string;
   csv: string;
-  zip:string;
+  zip: string;
 }
 
 export const logoFile: ILogoFile = {

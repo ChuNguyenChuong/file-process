@@ -14,7 +14,7 @@ import { BoxBgTranper } from "../../components/styled";
 const SortFilesBlock = block(() => {
   const dispatch = useDispatch()
   const { list, session } = useSelector((state: RootState) => state.files);
-  
+
   const [value, setValue] = useState<IValue>({
     left: [
       {
@@ -66,7 +66,7 @@ const SortFilesBlock = block(() => {
     right: [
       {
         id: "all",
-        name : "All Files",
+        name: "All Files",
         list: list
       }
     ]
