@@ -41,7 +41,7 @@ function* sendFile(action: PayloadAction<IPayload<RcFile[]>>): SagaIterator {
 
 function* createFileProcessSaga(action: PayloadAction<IPayload<IBodyCreateFileProcess>>): SagaIterator {
   try {
-    message.loading("File processing ...");
+    message.loading("File processing ...", 100000);
     const fileRes = yield call(createFileProcessApi, action.payload.data);
     yield put({ type: createFileProcessFinally.type });
     const headerFileName = fileRes.headers['content-type']?.split('filename=')[1]?.split(';')[0];

@@ -32,11 +32,12 @@ type Props = {
   className?: string;
   value: IValue;
   setValue: React.Dispatch<React.SetStateAction<IValue>>;
+  disableDrag?: boolean
 };
 
 // event DragEvent : e: React.DragEvent<HTMLDivElement>
 
-const DndComponentBlock = block(({ value, setValue, className }: Props) => {
+const DndComponentBlock = block(({ value, setValue, className, disableDrag }: Props) => {
   const { left, right } = value;
   const itemDrag = useRef<IItemDrag>(DEFAULT_ITEM_DRAG);
   const overTtemDrag = useRef<IItemDrag>(DEFAULT_ITEM_DRAG);
@@ -238,7 +239,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
                 {group.list.map((item) => {
                   return <WrapperItem
                     key={item.id}
-                    draggable
+                    draggable={!disableDrag}
                     onDragStart={handleOnDragStar(item, EnumPosition.LEFT, group.id)}
                     onDragEnter={handleDragEnter(item, group.id, EnumPosition.LEFT)}
                     onDragEnd={handleDragEnd}
@@ -275,7 +276,7 @@ const DndComponentBlock = block(({ value, setValue, className }: Props) => {
                   {group.list.map((item) => {
                     return <WrapperItem
                       key={item.id}
-                      draggable
+                      draggable={!disableDrag}
                       onDragStart={handleOnDragStar(item, EnumPosition.RIGHT, group.id)}
                       onDragEnter={handleDragEnter(item, group.id, EnumPosition.RIGHT)}
                       onDragEnd={handleDragEnd}

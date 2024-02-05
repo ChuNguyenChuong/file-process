@@ -3,7 +3,7 @@ import { Button, Form, Input } from "antd";
 import { block } from "million/react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import { createFileProcess } from "../../store/files/filesSlice";
 import { IBodyCreateFileProcess, IValue } from "../../types/common";
@@ -13,7 +13,8 @@ import { BoxBgTranper } from "../../components/styled";
 
 const SortFilesBlock = block(() => {
   const dispatch = useDispatch()
-  const { list, session } = useSelector((state: RootState) => state.files);
+  const naviagte = useNavigate()
+  const { list, session, isLoaddingFileProcess } = useSelector((state: RootState) => state.files);
 
   const [value, setValue] = useState<IValue>({
     left: [
@@ -73,7 +74,7 @@ const SortFilesBlock = block(() => {
   });
 
   const getContainer = () => {
-    return list.length === 0 ? <Navigate to="/upload-file" replace={true} /> : <DndComponent value={value} setValue={setValue}></DndComponent>
+    return list.length === 0 ? <Navigate to="/upload-file" replace={true} /> : <DndComponent value={value} setValue={setValue} disableDrag={isLoaddingFileProcess}></DndComponent>
   }
 
   const handleOnClickSubmit = (values: { company_id: string, client_id: string }) => {
@@ -85,7 +86,10 @@ const SortFilesBlock = block(() => {
       file: listFile
     }
     dispatch(createFileProcess({
-      data: data
+      data: data,
+      onSuccess: () => {
+        naviagte("/upload-file")
+      }
     }))
   }
 
@@ -112,7 +116,7 @@ const SortFilesBlock = block(() => {
           >
             <Input placeholder="AUDI AZ" />
           </Form.Item>
-          <Button htmlType="submit">Submit</Button>
+          <Button htmlType="submit" disabled={isLoaddingFileProcess}>Submit</Button>
         </Form>
       </BoxBgTranper>
       {
