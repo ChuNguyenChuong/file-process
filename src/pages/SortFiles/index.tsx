@@ -76,12 +76,12 @@ const SortFilesBlock = block(() => {
     return list.length === 0 ? <Navigate to="/upload-file" replace={true} /> : <DndComponent value={value} setValue={setValue}></DndComponent>
   }
 
-  const handleOnClickSubmit = (values: { company_ref: string, client_ref: string }) => {
+  const handleOnClickSubmit = (values: { company_id: string, client_id: string }) => {
     const listFile = value.left
     const data: IBodyCreateFileProcess = {
       session: session,
-      company_ref: values.company_ref,
-      client_ref: values.client_ref,
+      company_ref: values.company_id,
+      client_ref: values.client_id,
       file: listFile
     }
     dispatch(createFileProcess({
@@ -95,25 +95,23 @@ const SortFilesBlock = block(() => {
         <Form
           name="infor"
           layout="inline"
-          initialValues={{ company_ref: "", client_ref: "" }}
+          initialValues={{ company_id: "", client_id: "" }}
           onFinish={handleOnClickSubmit}
           autoComplete="off"
         >
           <Form.Item
-            name="company_ref"
-            rules={[{ required: true, message: 'Please input company ref!' }]}
+            name="company_id"
+            rules={[{ required: true, message: 'Please input unser az!' }]}
           >
-            <Input placeholder="Company ref" />
+            <Input placeholder="UNSER AZ" />
           </Form.Item>
 
           <Form.Item
-            name="client_ref"
-            rules={[{ required: true, message: 'Please input client ref!' }]}
+            name="client_id"
+            rules={[{ required: true, message: 'Please input audi az!' }]}
           >
-            <Input placeholder="Client ref" />
+            <Input placeholder="AUDI AZ" />
           </Form.Item>
-
-
           <Button htmlType="submit">Submit</Button>
         </Form>
       </BoxBgTranper>

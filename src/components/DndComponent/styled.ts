@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const DndComponentWraper = styled.div`
   display: flex;
   gap: 16px;
+  position: relative;
 `;
 
 export const WraperContainer = styled.div`
@@ -12,10 +13,17 @@ export const WraperContainer = styled.div`
   gap: 24px;
   background-color: rgba(252, 253, 255, 0.3);
   padding: 16px;
-  height: 720px;
+  /* height: 720px;
   max-height: 720px;
-  overflow: auto;
+  overflow: auto; */
   border-radius: 16px;
+  overflow-anchor: none;
+  position: relative;
+
+  &.scroll {
+    position: sticky;
+    top: 30px;
+  }
 
   &::-webkit-scrollbar {
     width: 0px;
@@ -49,25 +57,36 @@ export const LeftFilter = styled.div`
   background-color: white;
 `;
 
+export const WraperContainerRight = styled.div`
+  position: relative;
+`;
+
 export const RightFiles = styled.div`
-  min-width: 200px;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 30px;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   user-select: none;
-  position: relative;
+  position: sticky;
+  top: 20px;
   background-color: white;
 `;
 
+export const WrapperItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px; 
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  border-radius: 4px;
+  user-select: none;
+  padding: 4px 8px;
+`
+
 export const Item = styled.div`
   cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-  user-select: none;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  font-size: 16px;
   width: 100%;
 `;
 
@@ -103,6 +122,11 @@ export const TooltipGroupName = styled(Tooltip)`
 export const GroupContent = styled.div`
   padding: 0px 16px;
   min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  cursor: pointer;
+  padding-bottom: 16px;
 `;
 
 

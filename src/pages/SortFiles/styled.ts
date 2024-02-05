@@ -2,8 +2,8 @@ import styled from "styled-components"
 
 export const WrapperSortFile = styled.div`
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  /* height: 100vh;
+  overflow: hidden; */
   display: flex;
   gap: 30px;
   flex-direction: column;
