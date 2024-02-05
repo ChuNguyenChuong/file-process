@@ -81,8 +81,8 @@ const SortFilesBlock = block(() => {
     const listFile = value.left
     const data: IBodyCreateFileProcess = {
       session: session,
-      company_ref: values.company_id,
-      client_ref: values.client_id,
+      company_id: values.company_id,
+      client_id: values.client_id,
       file: listFile
     }
     dispatch(createFileProcess({

@@ -41,7 +41,7 @@ export interface IFilesDetail {
 
 export interface IBodyCreateFileProcess {
   session: string,
-  company_ref :string;
-  client_ref: string;
+  company_id :string;
+  client_id: string;
   file: IGroup[]
 }

@@ -82,6 +82,12 @@ export const WrapperItem = styled.div`
   border-radius: 4px;
   user-select: none;
   padding: 4px 8px;
+
+  &.color-white{
+    color: white;
+    margin-top: 10px;
+    background-color: rgba(255,255,255, 0.3);
+  }
 `
 
 export const Item = styled.div`
