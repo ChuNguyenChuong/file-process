@@ -4,12 +4,11 @@ import { RcFile } from "antd/es/upload"
 import fileDownload from "js-file-download"
 import { SagaIterator } from "redux-saga"
 import { all, call, put, takeLatest, } from "redux-saga/effects"
+import { IFileExtention, fileExtention } from "../../enums/common"
 import { IPayload } from "../../types"
 import { IBodyCreateFileProcess } from "../../types/common"
 import { createFileProcessApi, sendFilesApi } from "./api"
 import { createFileProcess, createFileProcessFinally, uploadFileStore, uploadFileStoreFail, uploadFileStoreSuccess } from "./filesSlice"
-import { IFileExtention, fileExtention } from "../../enums/common"
-import dayjs from "dayjs"
 
 const destroyMessageAndShowMessage = (messageDisplay: string, isSuccess: boolean = true) => {
   message.destroy();
@@ -45,7 +44,7 @@ function* createFileProcessSaga(action: PayloadAction<IPayload<IBodyCreateFilePr
     const fileRes = yield call(createFileProcessApi, action.payload.data);
     yield put({ type: createFileProcessFinally.type });
     const headerFileName = fileRes.headers['content-type']?.split('filename=')[1]?.split(';')[0];
-    fileDownload(fileRes.data, headerFileName || `result-${dayjs().format("YYYY-MM-DD_hh-mm")}${getFileExtension(fileRes.data)}` )
+    fileDownload(fileRes.data, headerFileName || `Audi-AZ${getFileExtension(fileRes.data)}` )
     destroyMessageAndShowMessage("File processing success!!!")
     action.payload.onSuccess && action.payload.onSuccess(fileRes);
   } catch (e) {
