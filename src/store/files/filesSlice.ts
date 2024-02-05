@@ -14,58 +14,58 @@ export interface CounterState {
 
 const initialState: CounterState = {
   list: [
-    {
-      id: "1",
-      name: `excel.xlsx`,
-    },
-    {
-      id: "2",
-      name: `neue-ANS-Hilfs-korr.docx`,
-    },
-    {
-      id: "3",
-      name: `neue-ANS-Hilfs-rein.docx`,
-    },
-    {
-      id: "4",
-      name: `neue-BES-Haupt-korr.docx`,
-    },
-    {
-      id: "5",
-      name: `neue-BES-Haupt-rein.docx`,
-    },
-    {
-      id: "6",
-      name: `neue-BES-Hilfs-korr.docx`,
-    },
-    {
-      id: "7",
-      name: `neue-BES-Hilfs-rein.docx`,
-    },
-    {
-      id: "8",
-      name: `Ohter-BSW.docx`,
-    },
-    {
-      id: "9",
-      name: `Rechnung.pdf`,
-    },
-    {
-      id: "10",
-      name: `Ueberm-BSW.docx`,
-    },
-    {
-      id: "11",
-      name: `Ohter-BSW-.docx`,
-    },
-    {
-      id: "12",
-      name: `-neue-ANS--bc--korr.docx`,
-    },
-    {
-      id: "12",
-      name: `-neue-ANS--bc--krr.docx`,
-    },
+    // {
+    //   id: "1",
+    //   name: `excel.xlsx`,
+    // },
+    // {
+    //   id: "2",
+    //   name: `neue-ANS-Hilfs-korr.docx`,
+    // },
+    // {
+    //   id: "3",
+    //   name: `neue-ANS-Hilfs-rein.docx`,
+    // },
+    // {
+    //   id: "4",
+    //   name: `neue-BES-Haupt-korr.docx`,
+    // },
+    // {
+    //   id: "5",
+    //   name: `neue-BES-Haupt-rein.docx`,
+    // },
+    // {
+    //   id: "6",
+    //   name: `neue-BES-Hilfs-korr.docx`,
+    // },
+    // {
+    //   id: "7",
+    //   name: `neue-BES-Hilfs-rein.docx`,
+    // },
+    // {
+    //   id: "8",
+    //   name: `Ohter-BSW.docx`,
+    // },
+    // {
+    //   id: "9",
+    //   name: `Rechnung.pdf`,
+    // },
+    // {
+    //   id: "10",
+    //   name: `Ueberm-BSW.docx`,
+    // },
+    // {
+    //   id: "11",
+    //   name: `Ohter-BSW-.docx`,
+    // },
+    // {
+    //   id: "12",
+    //   name: `-neue-ANS--bc--korr.docx`,
+    // },
+    // {
+    //   id: "12",
+    //   name: `-neue-ANS--bc--krr.docx`,
+    // },
   ],
   isLoadingUploadFile: false,
   session: "",
