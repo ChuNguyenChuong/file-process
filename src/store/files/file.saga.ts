@@ -43,8 +43,8 @@ function* createFileProcessSaga(action: PayloadAction<IPayload<IBodyCreateFilePr
     message.loading("File processing ...", 100000);
     const fileRes = yield call(createFileProcessApi, action.payload.data);
     yield put({ type: createFileProcessFinally.type });
-    const headerFileName = fileRes.headers['content-type']?.split('filename=')[1]?.split(';')[0];
-    fileDownload(fileRes.data, headerFileName || `Audi-AZ${getFileExtension(fileRes.data)}` )
+    const headerFileName = fileRes.headers['content-disposition']?.split('filename=')[1]?.split(';')[0];
+    fileDownload(fileRes.data, headerFileName || `${action.payload.data.client_id}${getFileExtension(fileRes.data)}` )
     destroyMessageAndShowMessage("File processing success!!!")
     action.payload.onSuccess && action.payload.onSuccess(fileRes);
   } catch (e) {
