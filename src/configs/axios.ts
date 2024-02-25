@@ -20,19 +20,19 @@ function createAxios() {
     },
     (error) => Promise.reject(error),
   );
-  axiosInstant.interceptors.response.use(
-    function (response) {
-      return response;
-    },
-    function (error) {
-      const responseUR = error.request.responseURL === 'http://139.180.195.102:8080/api/Login/Login';
-      if (responseUR) {
-        message.error('Tài khoản hoặc mật khẩu không chính xác');
-      } else if (error.response && error.response.status === 401) {
-        window.location.pathname = '/login';
-      }
-    },
-  );
+  // axiosInstant.interceptors.response.use(
+  //   function (response) {
+  //     return response;
+  //   },
+  //   function (error) {
+  //     const responseUR = error.request.responseURL === 'http://139.180.195.102:8080/api/Login/Login';
+  //     if (responseUR) {
+  //       message.error('Username or password incorrect!');
+  //     } else if (error.response && error.response.status === 401) {
+  //       window.location.pathname = '/login';
+  //     }
+  //   },
+  // );
   return axiosInstant;
 }
 
