@@ -9,8 +9,8 @@ export const sendFilesApi = async (files: RcFile[]) => {
     const element = files[i];
     formData.append("file" + i, element)
   }
-  
-  const res = await axios.post("https://gvb-workflow-production.up.railway.app/files/", formData, {
+
+  const res = await axios.post(`${import.meta.env.VITE_REQUEST_URL}/files`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -20,8 +20,8 @@ export const sendFilesApi = async (files: RcFile[]) => {
 }
 
 export const createFileProcessApi = async (body: IBodyCreateFileProcess) => {
-  const res = await axios.post("https://gvb-workflow-production.up.railway.app/process/", body, {
+  const res = await axios.post(`${import.meta.env.VITE_REQUEST_URL}/process`, body, {
     responseType: "blob"
-})
+  })
   return res
 }
