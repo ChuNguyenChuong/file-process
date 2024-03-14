@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import axios from 'axios';
 export const readToken = (): string => {
   return localStorage.getItem('accessToken') || '';
@@ -9,7 +8,7 @@ function createAxios() {
 
   axiosInstant.interceptors.request.use(
     async (config) => {
-      config.baseURL = 'https://gvb-workflow-production.up.railway.app/';
+      config.baseURL = import.meta.env.VITE_REQUEST_URL;
       axiosInstant.defaults.timeout = 20000;
       config.headers.Authorization = `Bearer ${readToken()}`;
       config.headers['Access-Control-Allow-Credentials'] = true;
@@ -20,19 +19,6 @@ function createAxios() {
     },
     (error) => Promise.reject(error),
   );
-  // axiosInstant.interceptors.response.use(
-  //   function (response) {
-  //     return response;
-  //   },
-  //   function (error) {
-  //     const responseUR = error.request.responseURL === 'http://139.180.195.102:8080/api/Login/Login';
-  //     if (responseUR) {
-  //       message.error('Username or password incorrect!');
-  //     } else if (error.response && error.response.status === 401) {
-  //       window.location.pathname = '/login';
-  //     }
-  //   },
-  // );
   return axiosInstant;
 }
 
